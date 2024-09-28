@@ -1,4 +1,4 @@
-package com.example.todoapp.fragments
+package com.example.kotlintodopractice.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.todoapp.R
-import com.example.todoapp.databinding.FragmentSignUpBinding
+import com.example.kotlintodopractice.R
+import com.example.kotlintodopractice.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -19,11 +19,7 @@ class SignUpFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentSignUpBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }

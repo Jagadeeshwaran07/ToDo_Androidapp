@@ -1,21 +1,22 @@
 {
   "project_info": {
-    "project_number": "705743848107",
-    "project_id": "to-do-app-a692b",
-    "storage_bucket": "to-do-app-a692b.appspot.com"
+    "project_number": "15723571591",
+    "firebase_url": "https://kotlin-todo-32cd2-default-rtdb.firebaseio.com",
+    "project_id": "kotlin-todo-32cd2",
+    "storage_bucket": "kotlin-todo-32cd2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:705743848107:android:a159e9ad86688ae856adee",
+        "mobilesdk_app_id": "1:15723571591:android:b32a51c364aac947164b22",
         "android_client_info": {
-          "package_name": "com.example.todoapp"
+          "package_name": "com.example.kotlintodopractice"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDof0roR4JK1dJ-jewu9hfjMUahbUqLO70"
+          "current_key": "AIzaSyANe8tGZ1dLIJjjm5tMA6fh_HS4HTgFKrQ"
         }
       ],
       "services": {

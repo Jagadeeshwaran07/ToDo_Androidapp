@@ -10,7 +10,6 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:contentDescription="@string/todo"
         android:scaleType="fitXY"
         android:src="@drawable/design_one"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +23,6 @@
         android:layout_height="130dp"
         android:scaleType="fitXY"
         android:src="@drawable/ellipse_one"
-        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +33,6 @@
         android:layout_width="0dp"
         android:layout_height="210dp"
         android:layout_marginStart="12dp"
-        android:contentDescription="@string/todo"
         android:scaleType="fitXY"
         android:src="@drawable/design_two"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,15 +44,15 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/todo"
+        android:text="todo"
         android:textColor="@color/text_color"
-        android:textStyle="italic|bold"
+        android:textStyle="italic"
         android:gravity="center_horizontal"
+        android:fontFamily="@font/inter_extra_bold"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
