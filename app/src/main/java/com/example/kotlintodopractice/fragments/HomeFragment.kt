@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kotlintodopractice.R
 import com.example.kotlintodopractice.databinding.FragmentHomeBinding
 import com.example.kotlintodopractice.utils.adapter.TaskAdapter
 import com.example.kotlintodopractice.utils.model.ToDoData
@@ -28,7 +31,7 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
     private var frag: ToDoDialogFragment? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var authId: String
-
+    private lateinit var navController: NavController
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var toDoItemList: MutableList<ToDoData>
 
@@ -41,7 +44,7 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        init()
+        init(view)
         getTaskFromFirebase()
 
         binding.addTaskBtn.setOnClickListener {
@@ -55,6 +58,12 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
                 childFragmentManager,
                 ToDoDialogFragment.TAG
             )
+        }
+
+        binding.signout.setOnClickListener {
+            navController.navigate(R.id.action_homeFragment_to_signInFragment)
+            auth.signOut()
+            Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -85,11 +94,13 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
         })
     }
 
-    private fun init() {
+    private fun init(view: View) {
 
         auth = FirebaseAuth.getInstance()
         authId = auth.currentUser!!.uid
         database = Firebase.database.reference.child("Tasks").child(authId)
+        navController = Navigation.findNavController(view)
+
 
         binding.mainRecyclerView.setHasFixedSize(true)
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
