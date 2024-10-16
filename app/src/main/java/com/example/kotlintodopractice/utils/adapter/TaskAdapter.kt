@@ -14,6 +14,10 @@ class TaskAdapter(private val list: MutableList<ToDoData>) : RecyclerView.Adapte
     fun setListener(listener:TaskAdapterInterface){
         this.listener = listener
     }
+
+    //	•	Adapter: Connects the data to the RecyclerView and defines how to display it.
+    //	•	Data Class: Holds the data properties that represent each item in the RecyclerView.
+
     class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {

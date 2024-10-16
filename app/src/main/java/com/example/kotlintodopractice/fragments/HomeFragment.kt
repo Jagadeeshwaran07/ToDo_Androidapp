@@ -1,5 +1,6 @@
 package com.example.kotlintodopractice.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlintodopractice.R
 import com.example.kotlintodopractice.databinding.FragmentHomeBinding
+import com.example.kotlintodopractice.utils.SnackbarHelper
 import com.example.kotlintodopractice.utils.adapter.TaskAdapter
 import com.example.kotlintodopractice.utils.model.ToDoData
 import com.google.android.material.textfield.TextInputEditText
@@ -23,20 +25,26 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener, TaskAdapter.TaskAdapterInterface {
+class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener,
+    TaskAdapter.TaskAdapterInterface {
 
     private val TAG = "HomeFragment"
     private lateinit var binding: FragmentHomeBinding
     private lateinit var database: DatabaseReference
-    private var frag: ToDoDialogFragment? = null
     private lateinit var auth: FirebaseAuth
-    private lateinit var authId: String
     private lateinit var navController: NavController
+
+    private var frag: ToDoDialogFragment? = null
+    private lateinit var authId: String
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var toDoItemList: MutableList<ToDoData>
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,7 +56,6 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
         getTaskFromFirebase()
 
         binding.addTaskBtn.setOnClickListener {
-
             if (frag != null)
                 childFragmentManager.beginTransaction().remove(frag!!).commit()
             frag = ToDoDialogFragment()
@@ -60,12 +67,73 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
             )
         }
 
+
+
+
+
+
+
+
         binding.signout.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_signInFragment)
-            auth.signOut()
-            Toast.makeText(context, "Logged out successfully", Toast.LENGTH_SHORT).show()
+            val snackbarHelper = SnackbarHelper()
+            snackbarHelper.displayDefaultSnackbar(
+                parentView = binding.signout,
+                message = "Do you really want to ${binding.signout.text}?",
+                actionText = "Yes",
+                action = {
+                    navController.navigate(R.id.action_homeFragment_to_signInFragment)
+                    auth.signOut()
+                })
+
         }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            val snackbar = Snackbar.make(binding.signout,"Are you sure you want to logout?",Snackbar.LENGTH_LONG)
+//
+//            snackbar.setText("Do you really want to log out?")
+//
+//            snackbar.setTextColor(Color.MAGENTA)
+//
+//            snackbar.setAction("Yes"){
+//                navController.navigate(R.id.action_homeFragment_to_signInFragment)
+//                auth.signOut()
+//            }
+//
+//            snackbar.show()
+//
+//            snackbar.setActionTextColor(Color.RED)
+//
+//            snackbar.setBackgroundTint(Color.LTGRAY)
+//
+//            snackbar.setTextColor(Color.BLUE)
+//
+//            val duration = snackbar.duration
+//            Log.d("Snackbar", "Snackbar duration: $duration milliseconds")
+//
+//            val isSnackbarShown = snackbar.isShown
+//            if (isSnackbarShown) {
+//                Log.d("Snackbar", "Snackbar is currently being shown.")
+//            } else {
+//                Log.d("Snackbar", "Snackbar is not visible yet.")
+//            }
+//
+      }
 
     private fun getTaskFromFirebase() {
         database.addValueEventListener(object : ValueEventListener {
@@ -101,13 +169,14 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
         database = Firebase.database.reference.child("Tasks").child(authId)
         navController = Navigation.findNavController(view)
 
-
         binding.mainRecyclerView.setHasFixedSize(true)
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
 
         toDoItemList = mutableListOf()
+
         taskAdapter = TaskAdapter(toDoItemList)
         taskAdapter.setListener(this)
+
         binding.mainRecyclerView.adapter = taskAdapter
 
     }

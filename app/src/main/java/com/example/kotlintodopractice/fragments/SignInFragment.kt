@@ -18,6 +18,11 @@ class SignInFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentSignInBinding
 
+    //   textView = findViewById(R.id.myTextView)
+    //   textView.text = "Hello, without View Binding!"
+
+    //   binding.myTextView.text = "Hello, with View Binding!"
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +46,6 @@ class SignInFragment : Fragment() {
             val pass = binding.passEt.text.toString()
 
             if (email.isNotEmpty() && pass.isNotEmpty())
-
                 loginUser(email, pass)
             else
                 Toast.makeText(context, "Empty fields are not allowed", Toast.LENGTH_SHORT).show()

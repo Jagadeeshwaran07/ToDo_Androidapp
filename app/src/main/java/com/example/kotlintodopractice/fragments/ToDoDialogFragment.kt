@@ -13,8 +13,8 @@ import com.google.android.material.textfield.TextInputEditText
 
 class ToDoDialogFragment : DialogFragment() {
 
-    private lateinit var binding:FragmentToDoDialogBinding
-    private var listener : OnDialogNextBtnClickListener? = null
+    private lateinit var binding: FragmentToDoDialogBinding
+    private var listener: OnDialogNextBtnClickListener? = null
     private var toDoData: ToDoData? = null
 
 
@@ -22,20 +22,18 @@ class ToDoDialogFragment : DialogFragment() {
         this.listener = listener
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        binding = FragmentToDoDialogBinding.inflate(inflater , container,false)
+        binding = FragmentToDoDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (arguments != null){
-
-            toDoData = ToDoData(arguments?.getString("taskId").toString() ,arguments?.getString("task").toString())
-            binding.todoEt.setText(toDoData?.task)
-        }
 
 
         binding.todoClose.setOnClickListener {
@@ -45,20 +43,36 @@ class ToDoDialogFragment : DialogFragment() {
         binding.todoNextBtn.setOnClickListener {
 
             val todoTask = binding.todoEt.text.toString()
-            if (todoTask.isNotEmpty()){
-                if (toDoData == null){
-                    listener?.saveTask(todoTask , binding.todoEt)
-                }else{
+            if (todoTask.isNotEmpty()) {
+                if (toDoData == null) {
+                    listener?.saveTask(todoTask, binding.todoEt)
+                } else {
                     toDoData!!.task = todoTask
                     listener?.updateTask(toDoData!!, binding.todoEt)
                 }
 
             }
         }
+
+
+        if (arguments != null) {
+            toDoData = ToDoData(
+                arguments?.getString("taskId").toString(),
+                arguments?.getString("task").toString()
+            )
+            binding.todoEt.setText(toDoData?.task)
+        }
+    }
+
+
+    interface OnDialogNextBtnClickListener {
+        fun saveTask(todoTask: String, todoEdit: TextInputEditText)
+        fun updateTask(toDoData: ToDoData, todoEdit: TextInputEditText)
     }
 
     companion object {
-        const val TAG = "DialogFragment"
+        const val TAG = "DialogFragment" //val currentDate = Date() const val PI = 3.14
+
         @JvmStatic
         fun newInstance(taskId: String, task: String) =
             ToDoDialogFragment().apply {
@@ -67,11 +81,6 @@ class ToDoDialogFragment : DialogFragment() {
                     putString("task", task)
                 }
             }
-    }
-
-    interface OnDialogNextBtnClickListener{
-        fun saveTask(todoTask:String , todoEdit:TextInputEditText)
-        fun updateTask(toDoData: ToDoData , todoEdit:TextInputEditText)
     }
 
 }

@@ -27,11 +27,9 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-
         init(view)
 
         val isLogin: Boolean = mAuth.currentUser != null
-
         val handler = Handler(Looper.myLooper()!!)
 
         handler.postDelayed({
@@ -45,6 +43,7 @@ class SplashFragment : Fragment() {
     }
 
     private fun init(view: View) {
+        // def _init(view) // private void init(View view) // private: void init(View view) {
         mAuth = FirebaseAuth.getInstance()
         navController = Navigation.findNavController(view)
     }
